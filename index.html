@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png">
     <title>Happy Birthday Dorine!</title>
     <style>
+        :root {
+            --color-canvas-white: #ffffff;
+            --color-ink-black: #292929;
+            --color-deep-black: #000000;
+
+            --font-primary: 'Helvetica Neue', ui-sans-serif, system-ui, -apple-system, sans-serif;
+            --font-condensed: 'Impact', 'Arial Narrow', sans-serif;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,15 +23,16 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--color-canvas-white);
+            font-family: var(--font-primary);
+            color: var(--color-ink-black);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow-x: hidden;
             padding: 20px;
             position: relative;
+            overflow-x: hidden;
         }
 
         body::before {
@@ -30,260 +41,185 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 45vw;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.06);
+            font-family: var(--font-primary);
+            font-size: 50vw;
+            font-weight: 100;
+            color: var(--color-ink-black);
+            opacity: 0.03;
             z-index: 0;
             pointer-events: none;
             letter-spacing: -5vw;
         }
 
+        /* Surprise Button */
         .surprise-btn {
             position: fixed;
             top: 20px;
             left: 20px;
-            background: linear-gradient(135deg, #fd79a8, #e84393);
-            color: #fff;
-            border: none;
-            padding: 14px 26px;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            background: transparent;
+            color: var(--color-ink-black);
+            border: 1px solid var(--color-ink-black);
+            padding: 0 20px;
+            height: 36px;
+            line-height: 36px;
+            border-radius: 0;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: var(--font-primary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.4);
             z-index: 50;
-            animation: envelope-bounce 2s ease-in-out infinite;
+            animation: envelope-bounce 2.5s ease-in-out infinite;
             transform-origin: top center;
         }
 
         .surprise-btn::before {
-            content: '✉️ ';
+            content: '✉ ';
+            font-size: 14px;
         }
 
         @keyframes envelope-bounce {
-            0% { transform: translateY(-8px) rotate(-3deg); }
-            25% { transform: translateY(6px) rotate(2deg); }
-            50% { transform: translateY(-4px) rotate(-1deg); }
-            75% { transform: translateY(3px) rotate(1deg); }
-            100% { transform: translateY(-8px) rotate(-3deg); }
+            0% { transform: translateY(-5px) rotate(-1.5deg); }
+            25% { transform: translateY(3px) rotate(1deg); }
+            50% { transform: translateY(-2px) rotate(-0.5deg); }
+            75% { transform: translateY(2px) rotate(0.5deg); }
+            100% { transform: translateY(-5px) rotate(-1.5deg); }
         }
 
         .surprise-btn:hover {
-            animation: envelope-bounce 0.6s ease-in-out infinite;
-            box-shadow: 0 6px 20px rgba(232, 67, 147, 0.6);
+            background: var(--color-ink-black);
+            color: var(--color-canvas-white);
+            animation: envelope-bounce 0.4s ease-in-out infinite;
         }
 
         .surprise-btn:active {
             animation: none;
-            transform: scale(0.9);
+            transform: scale(0.97);
         }
 
-        .photo-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 300;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .photo-modal.active {
-            display: flex;
-        }
-
-        .photo-modal img {
-            max-width: 85%;
-            max-height: 80vh;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            animation: slideUp 0.4s ease;
-        }
-
-        .photo-modal .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 2.5rem;
-            color: #fff;
-            z-index: 301;
-        }
-
+        /* Profile */
         .pfp-container {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            z-index: 1;
         }
 
         .pfp {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            border-radius: 0;
             object-fit: cover;
-            border: 5px solid rgba(255,255,255,0.8);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            border: 1px solid var(--color-ink-black);
         }
 
         h1 {
-            color: #fff;
-            font-size: 3rem;
+            font-family: var(--font-primary);
+            font-size: 43px;
+            font-weight: 300;
+            line-height: 1.34;
+            letter-spacing: -0.86px;
+            color: var(--color-ink-black);
             text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: bounce 2s infinite;
+            margin-bottom: 8px;
+            z-index: 1;
         }
 
         .subtitle {
-            color: rgba(255,255,255,0.9);
-            font-size: 1.3rem;
-            margin-bottom: 50px;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: -0.32px;
+            color: var(--color-ink-black);
+            margin-bottom: 30px;
             text-align: center;
+            z-index: 1;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        /* Divider */
+        .divider {
+            width: 100%;
+            max-width: 900px;
+            height: 1px;
+            background: var(--color-ink-black);
+            margin: 25px 0;
+            z-index: 1;
         }
 
+        /* Boxes */
         .boxes-container {
             display: flex;
-            gap: 40px;
+            gap: 0;
             flex-wrap: wrap;
             justify-content: center;
-            max-width: 1200px;
+            max-width: 960px;
+            z-index: 1;
+            border: 1px solid var(--color-ink-black);
         }
 
         .gift-box-wrapper {
-            perspective: 1000px;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .gift-box-wrapper:not(:last-child) {
+            border-right: 1px solid var(--color-ink-black);
         }
 
         .gift-box {
-            width: 280px;
+            width: 100%;
             height: 320px;
             position: relative;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: background 0.15s ease;
         }
 
         .gift-box:hover {
-            transform: scale(1.05);
-        }
-
-        .gift-box:hover .box-body {
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            background: #f8f8f8;
         }
 
         .box-body {
             width: 100%;
             height: 100%;
-            border-radius: 16px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            transition: box-shadow 0.3s ease;
-        }
-
-        .box-1 .box-body {
-            background: linear-gradient(145deg, #ff6b6b, #ee5a24);
-        }
-
-        .box-2 .box-body {
-            background: linear-gradient(145deg, #48dbfb, #0abde3);
-        }
-
-        .box-3 .box-body {
-            background: linear-gradient(145deg, #feca57, #ff9f43);
-        }
-
-        .ribbon-h {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 30px;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.4);
-        }
-
-        .ribbon-v {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 30px;
-            height: 100%;
-            transform: translateX(-50%);
-            background: rgba(255,255,255,0.4);
-        }
-
-        .bow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            z-index: 2;
-        }
-
-        .bow::before, .bow::after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border-radius: 50% 50% 0 50%;
-            background: rgba(255,255,255,0.6);
-        }
-
-        .bow::before {
-            top: 5px;
-            left: 5px;
-            transform: rotate(-45deg);
-        }
-
-        .bow::after {
-            top: 5px;
-            right: 5px;
-            transform: rotate(45deg);
-            border-radius: 50% 50% 50% 0;
-        }
-
-        .box-number {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,0.9);
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
         .box-label {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,0.9);
             font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .box-title {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-ink-black);
+            margin-bottom: 4px;
+        }
+
+        .box-number {
+            font-size: 25px;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            color: var(--color-ink-black);
         }
 
         .click-hint {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,0.7);
-            font-size: 0.9rem;
-            animation: pulse 1.5s infinite;
-            white-space: nowrap;
+            margin-top: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-ink-black);
+            border: 1px solid var(--color-ink-black);
+            padding: 0 12px;
+            height: 28px;
+            line-height: 28px;
+            animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
@@ -291,7 +227,58 @@
             50% { opacity: 1; }
         }
 
-        /* Modal */
+        /* Locked state */
+        .gift-box.locked {
+            cursor: not-allowed;
+        }
+
+        .gift-box.locked .box-body {
+            opacity: 0.4;
+        }
+
+        .gift-box.locked:hover {
+            background: transparent;
+        }
+
+        .lock-overlay {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .lock-icon {
+            font-size: 1.6rem;
+            animation: shake 3s infinite;
+        }
+
+        @keyframes shake {
+            0%, 92%, 100% { transform: rotate(0deg); }
+            94% { transform: rotate(-3deg); }
+            96% { transform: rotate(3deg); }
+            98% { transform: rotate(-3deg); }
+        }
+
+        .lock-date {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-ink-black);
+            border: 1px solid var(--color-ink-black);
+            padding: 2px 10px;
+        }
+
+        .countdown {
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: var(--color-ink-black);
+        }
+
+        /* Modals */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -299,11 +286,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(255, 255, 255, 0.95);
             z-index: 100;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.15s ease;
         }
 
         .modal-overlay.active {
@@ -316,59 +303,247 @@
         }
 
         .modal-content {
-            background: #fff;
-            border-radius: 24px;
-            padding: 50px;
-            max-width: 500px;
+            background: var(--color-canvas-white);
+            border: 1px solid var(--color-ink-black);
+            padding: 43px;
+            max-width: 540px;
             width: 90%;
             text-align: center;
             position: relative;
-            animation: slideUp 0.5s ease;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideUp 0.2s ease;
         }
 
         @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
+            from { transform: translateY(10px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
         .modal-content h2 {
-            font-size: 2rem;
+            font-family: var(--font-primary);
+            font-size: 32px;
+            font-weight: 300;
+            line-height: 1.2;
+            letter-spacing: -0.64px;
+            color: var(--color-ink-black);
             margin-bottom: 20px;
-            color: #333;
         }
 
         .modal-content p {
-            font-size: 1.2rem;
-            color: #555;
-            line-height: 1.6;
-        }
-
-        .modal-content .emoji-big {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            display: block;
+            font-size: 16px;
+            font-weight: 300;
+            color: var(--color-ink-black);
+            line-height: 1.5;
+            letter-spacing: -0.32px;
         }
 
         .modal-close {
             position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            color: #999;
+            top: 12px;
+            right: 16px;
+            font-size: 1.4rem;
+            color: var(--color-ink-black);
             cursor: pointer;
             border: none;
             background: none;
-            transition: color 0.2s;
+            font-weight: 300;
+            transition: opacity 0.15s;
         }
 
         .modal-close:hover {
-            color: #333;
+            opacity: 0.5;
         }
 
-        .modal-1 h2 { color: #ee5a24; }
-        .modal-2 h2 { color: #0abde3; }
-        .modal-3 h2 { color: #ff9f43; }
+        .gift-reveal {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 1px solid var(--color-ink-black);
+        }
+
+        .placeholder-note {
+            margin-top: 20px;
+            padding: 16px;
+            border: 1px solid var(--color-ink-black);
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--color-ink-black);
+            text-align: left;
+        }
+
+        /* Clues */
+        .clues-container {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 25px 0 12px;
+            flex-wrap: wrap;
+        }
+
+        .clue-btn {
+            background: transparent;
+            color: var(--color-ink-black);
+            border: 1px solid var(--color-ink-black);
+            padding: 0 14px;
+            height: 32px;
+            line-height: 32px;
+            border-radius: 0;
+            font-size: 13px;
+            font-weight: 400;
+            font-family: var(--font-primary);
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .clue-btn:hover {
+            background: var(--color-ink-black);
+            color: var(--color-canvas-white);
+        }
+
+        .clue-btn:active {
+            transform: scale(0.97);
+        }
+
+        .clue-btn.revealed {
+            background: transparent;
+            color: var(--color-ink-black);
+            opacity: 0.3;
+            cursor: default;
+            border-style: dashed;
+        }
+
+        .clue-btn.revealed:hover {
+            background: transparent;
+            color: var(--color-ink-black);
+        }
+
+        .clue-cooldown {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            color: var(--color-ink-black);
+            margin-top: 8px;
+            min-height: 18px;
+        }
+
+        .clue-reveal {
+            display: none;
+            margin-top: 16px;
+            padding: 20px;
+            border: 1px solid var(--color-ink-black);
+            animation: slideUp 0.2s ease;
+        }
+
+        .clue-reveal.active {
+            display: block;
+        }
+
+        .clue-reveal p {
+            font-size: 15px;
+            font-weight: 300;
+            color: var(--color-ink-black);
+            line-height: 1.6;
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* Guess */
+        .guess-container {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border: 1px solid var(--color-ink-black);
+            animation: slideUp 0.2s ease;
+            direction: rtl;
+        }
+
+        .guess-container.active {
+            display: block;
+        }
+
+        .guess-input {
+            width: 100%;
+            padding: 8px 0;
+            border: none;
+            border-bottom: 1px solid var(--color-deep-black);
+            border-radius: 0;
+            font-size: 16px;
+            font-family: var(--font-primary);
+            font-weight: 300;
+            text-align: center;
+            margin: 12px 0;
+            background: transparent;
+            color: var(--color-deep-black);
+        }
+
+        .guess-input:focus {
+            outline: none;
+            border-bottom-width: 2px;
+        }
+
+        .guess-btn {
+            background: transparent;
+            color: var(--color-ink-black);
+            border: 1px solid var(--color-ink-black);
+            padding: 0 20px;
+            height: 32px;
+            line-height: 32px;
+            border-radius: 0;
+            font-size: 13px;
+            font-weight: 400;
+            font-family: var(--font-primary);
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .guess-btn:hover {
+            background: var(--color-ink-black);
+            color: var(--color-canvas-white);
+        }
+
+        .guess-result {
+            margin-top: 12px;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* Photo modal */
+        .photo-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.97);
+            z-index: 300;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.15s ease;
+        }
+
+        .photo-modal.active {
+            display: flex;
+        }
+
+        .photo-modal img {
+            max-width: 80%;
+            max-height: 75vh;
+            border: 1px solid var(--color-ink-black);
+            animation: slideUp 0.2s ease;
+        }
+
+        .photo-modal .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 28px;
+            font-size: 1.8rem;
+            color: var(--color-ink-black);
+            z-index: 301;
+        }
 
         /* Confetti */
         .confetti {
@@ -383,260 +558,354 @@
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
-        /* Sparkles on page */
-        .sparkle {
+        /* Lock Screen */
+        .lock-screen {
             position: fixed;
-            width: 6px;
-            height: 6px;
-            background: #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: sparkle-float 3s infinite;
-            opacity: 0.6;
-        }
-
-        @keyframes sparkle-float {
-            0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
-            50% { transform: translateY(-20px) scale(1.5); opacity: 1; }
-        }
-
-        /* Gift image/icon in modal */
-        .gift-reveal {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-
-        .modal-1 .gift-reveal { background: linear-gradient(135deg, #ff6b6b22, #ee5a2422); }
-        .modal-2 .gift-reveal { background: linear-gradient(135deg, #48dbfb22, #0abde322); }
-        .modal-3 .gift-reveal { background: linear-gradient(135deg, #feca5722, #ff9f4322); }
-
-        .placeholder-note {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            color: #666;
-            border-left: 4px solid #ddd;
-        }
-
-        .clues-container {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin: 25px 0 20px;
-            flex-wrap: wrap;
-        }
-
-        .clue-btn {
-            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
-            color: #fff;
-            border: none;
-            padding: 12px 22px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 3px 10px rgba(238, 90, 36, 0.3);
-        }
-
-        .clue-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 5px 15px rgba(238, 90, 36, 0.5);
-        }
-
-        .clue-btn:active {
-            transform: scale(0.95);
-        }
-
-        .clue-btn.revealed {
-            background: linear-gradient(135deg, #a0a0a0, #c0c0c0);
-            box-shadow: none;
-        }
-
-        .clue-reveal {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
-            background: linear-gradient(135deg, #fff5f5, #fff0eb);
-            border-radius: 16px;
-            border: 2px dashed #ee5a24;
-            animation: slideUp 0.4s ease;
-        }
-
-        .clue-reveal.active {
-            display: block;
-        }
-
-        .clue-reveal p {
-            font-size: 1.1rem;
-            color: #333;
-            line-height: 1.7;
-            direction: rtl;
-            text-align: right;
-        }
-
-        .clue-cooldown {
-            color: #ee5a24;
-            font-size: 0.95rem;
-            font-weight: bold;
-            margin-top: 10px;
-            min-height: 24px;
-        }
-
-        .guess-container {
-            display: none;
-            margin-top: 25px;
-            padding: 20px;
-            background: linear-gradient(135deg, #f0fff0, #e8fce8);
-            border-radius: 16px;
-            border: 2px solid #00b894;
-            animation: slideUp 0.4s ease;
-            direction: rtl;
-        }
-
-        .guess-container.active {
-            display: block;
-        }
-
-        .guess-input {
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #ddd;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            text-align: center;
-            margin-bottom: 12px;
-            transition: border-color 0.2s;
-        }
-
-        .guess-input:focus {
-            outline: none;
-            border-color: #ee5a24;
-        }
-
-        .guess-btn {
-            background: linear-gradient(135deg, #00b894, #00a383);
-            color: #fff;
-            border: none;
-            padding: 10px 28px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .guess-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .guess-result {
-            margin-top: 12px;
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-
-        /* Lock styles */
-        .gift-box.locked .box-body {
-            filter: grayscale(0.3) brightness(0.85);
-        }
-
-        .gift-box.locked {
-            cursor: not-allowed;
-        }
-
-        .gift-box.locked:hover {
-            transform: scale(1.02);
-        }
-
-        .lock-overlay {
-            position: absolute;
-            bottom: 45px;
-            left: 50%;
-            transform: translateX(-50%);
+            height: 100%;
+            background: var(--color-canvas-white);
+            z-index: 1000;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 5px;
-            z-index: 3;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
         }
 
-        .lock-icon {
-            font-size: 2.2rem;
-            animation: shake 2s infinite;
+        .lock-screen.hidden {
+            display: none;
         }
 
-        @keyframes shake {
-            0%, 90%, 100% { transform: rotate(0deg); }
-            92% { transform: rotate(-5deg); }
-            94% { transform: rotate(5deg); }
-            96% { transform: rotate(-5deg); }
-            98% { transform: rotate(5deg); }
+        .lock-screen.unlocking {
+            animation: unlockSplit 1s ease-in-out forwards;
         }
 
-        .lock-date {
-            color: rgba(255,255,255,0.95);
-            font-size: 0.85rem;
-            font-weight: bold;
-            background: rgba(0,0,0,0.4);
-            padding: 4px 12px;
-            border-radius: 20px;
-            white-space: nowrap;
+        @keyframes unlockSplit {
+            0% { clip-path: inset(0 0 0 0); opacity: 1; }
+            40% { clip-path: inset(0 0 0 0); opacity: 1; transform: scale(1); }
+            100% { clip-path: inset(50% 0 50% 0); opacity: 0; transform: scale(0.95); }
         }
 
-        /* Countdown timer on locked boxes */
-        .countdown {
-            position: absolute;
-            top: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,0.95);
-            font-size: 0.8rem;
-            font-weight: bold;
-            background: rgba(0,0,0,0.35);
-            padding: 6px 14px;
-            border-radius: 20px;
-            white-space: nowrap;
-            z-index: 3;
+        .lock-content.success .lock-logo {
+            animation: logoSpin 0.6s ease-in-out;
+        }
+
+        @keyframes logoSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .lock-content.success .password-display {
+            background: var(--color-ink-black);
+            color: var(--color-canvas-white);
+            transition: all 0.3s ease;
+        }
+
+        .lock-content.success .password-letters {
+            color: var(--color-canvas-white);
+        }
+
+        .lock-content {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .lock-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 25px;
+        }
+
+        .lock-title {
+            font-size: 25px;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .lock-subtitle {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--color-ink-black);
+            opacity: 0.6;
+            margin-bottom: 30px;
+        }
+
+        .riddles-container {
+            text-align: left;
+            border: 1px solid var(--color-ink-black);
+        }
+
+        .riddle {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .riddle:not(:last-child) {
+            border-bottom: 1px solid var(--color-ink-black);
+        }
+
+        .riddle-number {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            opacity: 0.4;
+            min-width: 14px;
+        }
+
+        .riddle-text {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        .riddle-answer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .riddle-input {
+            width: 80px;
+            padding: 4px 0;
+            border: none;
+            border-bottom: 1px solid var(--color-ink-black);
+            border-radius: 0;
+            font-size: 14px;
+            font-family: var(--font-primary);
+            font-weight: 300;
+            text-align: center;
+            background: transparent;
+            color: var(--color-ink-black);
+        }
+
+        .riddle-input:focus {
+            outline: none;
+            border-bottom-width: 2px;
+        }
+
+        .riddle-letter {
+            font-size: 18px;
+            font-weight: 400;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color-ink-black);
+            text-transform: uppercase;
+        }
+
+        .riddle-letter.filled {
+            background: var(--color-ink-black);
+            color: var(--color-canvas-white);
+        }
+
+        .password-display {
+            margin-top: 20px;
+            padding: 14px;
+            border: 1px solid var(--color-ink-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .password-label {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        .password-letters {
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .unlock-section {
+            margin-top: 20px;
+            display: flex;
+            gap: 0;
+        }
+
+        .unlock-input {
+            flex: 1;
+            padding: 0 16px;
+            height: 40px;
+            border: 1px solid var(--color-ink-black);
+            border-right: none;
+            border-radius: 0;
+            font-size: 14px;
+            font-family: var(--font-primary);
+            font-weight: 300;
+            background: transparent;
+            color: var(--color-ink-black);
+        }
+
+        .unlock-input:focus {
+            outline: none;
+        }
+
+        .unlock-btn {
+            padding: 0 24px;
+            height: 40px;
+            background: var(--color-ink-black);
+            color: var(--color-canvas-white);
+            border: 1px solid var(--color-ink-black);
+            border-radius: 0;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-family: var(--font-primary);
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+
+        .unlock-btn:hover {
+            opacity: 0.8;
+        }
+
+        .unlock-error {
+            margin-top: 10px;
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--color-ink-black);
+            min-height: 20px;
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .subtitle { font-size: 1rem; margin-bottom: 30px; }
-            .boxes-container { gap: 25px; }
-            .gift-box { width: 240px; height: 280px; }
-            .modal-content { padding: 30px; }
+            body { padding: 30px 16px; }
+            h1 { font-size: 32px; letter-spacing: -0.64px; }
+            .subtitle { font-size: 14px; margin-bottom: 30px; }
+            .boxes-container { flex-direction: column; }
+            .gift-box-wrapper:not(:last-child) {
+                border-right: none;
+                border-bottom: 1px solid var(--color-ink-black);
+            }
+            .gift-box { height: 240px; }
+            .modal-content { padding: 25px; }
+            .modal-content h2 { font-size: 25px; }
+            .surprise-btn { top: 12px; left: 12px; font-size: 11px; }
         }
     </style>
 </head>
 <body>
-    <button class="surprise-btn" onclick="showRandomPhoto()">Surprise!</button>
+    <!-- Lock Screen -->
+    <div class="lock-screen" id="lock-screen">
+        <div class="lock-content">
+            <img src="favicon.png" alt="DB26" class="lock-logo">
+            <h2 class="lock-title">Solve the riddles to enter</h2>
+            <p class="lock-subtitle">Each answer's first letter reveals the password</p>
+
+            <div class="riddles-container">
+                <div class="riddle" id="riddle-0">
+                    <span class="riddle-number">1</span>
+                    <p class="riddle-text">The name of a personal dog you know and like</p>
+                    <div class="riddle-answer">
+                        <input type="text" class="riddle-input" id="answer-0" placeholder="...">
+                        <span class="riddle-letter" id="letter-0">_</span>
+                    </div>
+                </div>
+                <div class="riddle" id="riddle-1">
+                    <span class="riddle-number">2</span>
+                    <p class="riddle-text">The name of the person you like the most</p>
+                    <div class="riddle-answer">
+                        <input type="text" class="riddle-input" id="answer-1" placeholder="...">
+                        <span class="riddle-letter" id="letter-1">_</span>
+                    </div>
+                </div>
+                <div class="riddle" id="riddle-2">
+                    <span class="riddle-number">3</span>
+                    <p class="riddle-text">A pilot you know</p>
+                    <div class="riddle-answer">
+                        <input type="text" class="riddle-input" id="answer-2" placeholder="...">
+                        <span class="riddle-letter" id="letter-2">_</span>
+                    </div>
+                </div>
+                <div class="riddle" id="riddle-3">
+                    <span class="riddle-number">4</span>
+                    <p class="riddle-text">You sit in a Japanese restaurant with Sharon, what do you order?</p>
+                    <div class="riddle-answer">
+                        <input type="text" class="riddle-input" id="answer-3" placeholder="...">
+                        <span class="riddle-letter" id="letter-3">_</span>
+                    </div>
+                </div>
+                <div class="riddle" id="riddle-4">
+                    <span class="riddle-number">5</span>
+                    <p class="riddle-text">Favourite luxury brand</p>
+                    <div class="riddle-answer">
+                        <input type="text" class="riddle-input" id="answer-4" placeholder="...">
+                        <span class="riddle-letter" id="letter-4">_</span>
+                    </div>
+                </div>
+                <div class="riddle" id="riddle-5">
+                    <span class="riddle-number">6</span>
+                    <p class="riddle-text">Idan's favourite person</p>
+                    <div class="riddle-answer">
+                        <input type="text" class="riddle-input" id="answer-5" placeholder="...">
+                        <span class="riddle-letter" id="letter-5">_</span>
+                    </div>
+                </div>
+                <div class="riddle" id="riddle-6">
+                    <span class="riddle-number">7</span>
+                    <p class="riddle-text">Dorine and Dana start with D, what about the other brothers?</p>
+                    <div class="riddle-answer">
+                        <input type="text" class="riddle-input" id="answer-6" placeholder="...">
+                        <span class="riddle-letter" id="letter-6">_</span>
+                    </div>
+                </div>
+                <div class="riddle" id="riddle-7">
+                    <span class="riddle-number">8</span>
+                    <p class="riddle-text">The game is White, Black, No ___</p>
+                    <div class="riddle-answer">
+                        <input type="text" class="riddle-input" id="answer-7" placeholder="...">
+                        <span class="riddle-letter" id="letter-7">_</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="password-display">
+                <span class="password-label">Password:</span>
+                <span class="password-letters" id="password-letters">_ _ _ _ _ _ _ _</span>
+            </div>
+
+            <div class="unlock-section">
+                <input type="text" class="unlock-input" id="unlock-input" placeholder="Enter the password">
+                <button class="unlock-btn" onclick="tryUnlock()">Unlock</button>
+            </div>
+            <p class="unlock-error" id="unlock-error"></p>
+        </div>
+    </div>
+
+    <button class="surprise-btn" onclick="showRandomPhoto()">Surprise</button>
 
     <div class="pfp-container">
         <img src="dorine.png" alt="Dorine" class="pfp">
     </div>
-    <h1>Happy Birthday, Dorine!</h1>
-    <p class="subtitle">You have 3 surprises waiting just for you... click to unwrap! 🎂</p>
+    <h1>Happy Birthday, Dorine</h1>
+    <p class="subtitle">You have 3 surprises waiting — click to unwrap</p>
 
     <div class="boxes-container">
         <!-- Box 1: Restaurant (open now) -->
         <div class="gift-box-wrapper">
             <div class="gift-box box-1" onclick="openBox(1)">
                 <div class="box-body">
-                    <div class="ribbon-h"></div>
-                    <div class="ribbon-v"></div>
-                    <div class="bow"></div>
+                    <span class="box-title">Dinner</span>
+                    <span class="box-number">01</span>
                     <span class="box-label">🍽️</span>
-                    <span class="box-number">Box #1</span>
-                    <span class="click-hint">Click to open!</span>
+                    <span class="click-hint">Open</span>
                 </div>
             </div>
         </div>
@@ -645,15 +914,13 @@
         <div class="gift-box-wrapper">
             <div class="gift-box box-2 locked" onclick="openBox(2)">
                 <div class="box-body">
-                    <div class="ribbon-h"></div>
-                    <div class="ribbon-v"></div>
-                    <div class="bow"></div>
+                    <span class="box-title">Card</span>
+                    <span class="box-number">02</span>
                     <span class="box-label">💌</span>
                     <div class="lock-overlay">
                         <span class="lock-icon">🔒</span>
                         <span class="lock-date">Opens 24/05</span>
                     </div>
-                    <span class="box-number">Box #2</span>
                 </div>
             </div>
         </div>
@@ -662,41 +929,39 @@
         <div class="gift-box-wrapper">
             <div class="gift-box box-3 locked" onclick="openBox(3)">
                 <div class="box-body">
-                    <div class="ribbon-h"></div>
-                    <div class="ribbon-v"></div>
-                    <div class="bow"></div>
+                    <span class="box-title">Gift</span>
+                    <span class="box-number">03</span>
                     <span class="box-label">🎁</span>
                     <div class="lock-overlay">
                         <span class="lock-icon">🔒</span>
                         <span class="lock-date">Opens 24/05</span>
                     </div>
-                    <span class="box-number">Box #3</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal 1: The Restaurant (open now) -->
+    <!-- Modal 1: Restaurant -->
     <div class="modal-overlay" id="modal-1">
-        <div class="modal-content modal-1">
+        <div class="modal-content">
             <button class="modal-close" onclick="closeModal(1)">&times;</button>
             <div class="gift-reveal">🍾</div>
-            <h2>Dorine, Dinner Awaits!</h2>
-            <p>Can you guess where we're going? Pick a clue!</p>
+            <h2>Dinner Awaits</h2>
+            <p>Can you guess where we're going? Pick a clue.</p>
             <div class="clues-container">
-                <button class="clue-btn" onclick="revealClue(0)">רמז #1</button>
-                <button class="clue-btn" onclick="revealClue(1)">רמז #2</button>
-                <button class="clue-btn" onclick="revealClue(2)">רמז #3</button>
-                <button class="clue-btn" onclick="revealClue(3)">רמז #4</button>
-                <button class="clue-btn" onclick="revealClue(4)">רמז #5</button>
-                <button class="clue-btn" onclick="revealClue(5)">רמז #6</button>
+                <button class="clue-btn" onclick="revealClue(0)">רמז 1</button>
+                <button class="clue-btn" onclick="revealClue(1)">רמז 2</button>
+                <button class="clue-btn" onclick="revealClue(2)">רמז 3</button>
+                <button class="clue-btn" onclick="revealClue(3)">רמז 4</button>
+                <button class="clue-btn" onclick="revealClue(4)">רמז 5</button>
+                <button class="clue-btn" onclick="revealClue(5)">רמז 6</button>
             </div>
             <div class="clue-cooldown" id="clue-cooldown"></div>
             <div class="clue-reveal" id="clue-reveal">
                 <p id="clue-text"></p>
             </div>
             <div class="guess-container" id="guess-container">
-                <p style="font-weight: bold; margin-bottom: 10px;">?אז... לאן הולכים</p>
+                <p style="font-weight: 400; margin-bottom: 8px;">?אז... לאן הולכים</p>
                 <input type="text" id="guess-input" class="guess-input" placeholder="...הכניסי את הניחוש שלך">
                 <button class="guess-btn" onclick="checkGuess()">בדקי!</button>
                 <p id="guess-result" class="guess-result"></p>
@@ -704,13 +969,13 @@
         </div>
     </div>
 
-    <!-- Modal 2: The Card (locked until 24/05) -->
+    <!-- Modal 2: Card -->
     <div class="modal-overlay" id="modal-2">
-        <div class="modal-content modal-2">
+        <div class="modal-content">
             <button class="modal-close" onclick="closeModal(2)">&times;</button>
             <div class="gift-reveal">💝</div>
             <h2>Dear Dorine,</h2>
-            <p style="font-style: italic; font-size: 1.3rem; color: #333; line-height: 1.8;">
+            <p style="font-style: italic; line-height: 1.8;">
                 "Wishing you the happiest of birthdays, Dorine! May this year bring you everything your heart desires. You deserve all the joy in the world."
             </p>
             <div class="placeholder-note">
@@ -720,27 +985,103 @@
         </div>
     </div>
 
-    <!-- Modal 3: The Gift (locked until 24/05) -->
+    <!-- Modal 3: Gift -->
     <div class="modal-overlay" id="modal-3">
-        <div class="modal-content modal-3">
+        <div class="modal-content">
             <button class="modal-close" onclick="closeModal(3)">&times;</button>
             <div class="gift-reveal">🎉</div>
-            <h2>Dorine's Gift!</h2>
+            <h2>Your Gift</h2>
             <p>Here's what's waiting for you, Dorine...</p>
             <div class="placeholder-note">
                 <strong>Invoice / Gift details go here</strong><br>
-                Replace this with the actual gift invoice or description. Could be a gadget, experience, or anything special!
+                Replace this with the actual gift invoice or description.
             </div>
         </div>
     </div>
 
-    <!-- Photo surprise modal -->
+    <!-- Photo modal -->
     <div class="photo-modal" id="photo-modal">
         <button class="modal-close" onclick="closePhotoModal()">&times;</button>
         <img id="random-photo" src="" alt="Surprise!">
     </div>
 
     <script>
+        // Lock screen logic
+        const riddles = [
+            { answer: 'bloom', letter: 'b' },
+            { answer: 'idan', letter: 'i' },
+            { answer: 'roi', letter: 'r' },
+            { answer: 'tea', letter: 't' },
+            { answer: 'hermes', letter: 'h' },
+            { answer: 'dorine', letter: 'd' },
+            { answer: 'a', letter: 'a' },
+            { answer: 'yes', letter: 'y' }
+        ];
+
+        const PASSWORD = 'birthday';
+
+        // Listen to riddle inputs
+        document.querySelectorAll('.riddle-input').forEach((input, idx) => {
+            input.addEventListener('input', () => {
+                const val = input.value.trim().toLowerCase();
+                const letterEl = document.getElementById(`letter-${idx}`);
+                const correctAnswers = ['bloom', 'idan', 'roi', 'tea', 'hermes', 'dorine', 'amir', 'yes'];
+                const altAnswers = [[], [], [], [], ['hermès'], [], ['alon', 'a'], []];
+
+                let isCorrect = val === correctAnswers[idx] || altAnswers[idx].includes(val);
+
+                if (isCorrect) {
+                    letterEl.textContent = riddles[idx].letter;
+                    letterEl.classList.add('filled');
+                } else {
+                    letterEl.textContent = '_';
+                    letterEl.classList.remove('filled');
+                }
+
+                updatePasswordDisplay();
+            });
+        });
+
+        function updatePasswordDisplay() {
+            let display = '';
+            for (let i = 0; i < 8; i++) {
+                const el = document.getElementById(`letter-${i}`);
+                display += el.textContent === '_' ? '_ ' : el.textContent.toUpperCase() + ' ';
+            }
+            document.getElementById('password-letters').textContent = display.trim();
+        }
+
+        function tryUnlock() {
+            const input = document.getElementById('unlock-input').value.trim().toLowerCase();
+            if (input === PASSWORD) {
+                const lockScreen = document.getElementById('lock-screen');
+                const lockContent = document.querySelector('.lock-content');
+
+                lockContent.classList.add('success');
+
+                setTimeout(() => {
+                    lockScreen.classList.add('unlocking');
+                }, 600);
+
+                setTimeout(() => {
+                    lockScreen.classList.add('hidden');
+                    burstConfetti();
+                }, 1600);
+            } else {
+                const unlockInput = document.getElementById('unlock-input');
+                unlockInput.style.borderColor = 'red';
+                document.getElementById('unlock-error').textContent = '✗ Wrong password — solve the riddles';
+                setTimeout(() => {
+                    unlockInput.style.borderColor = '';
+                    document.getElementById('unlock-error').textContent = '';
+                }, 2000);
+            }
+        }
+
+        document.getElementById('unlock-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') tryUnlock();
+        });
+
         // Photo pool
         const photos = [
             'photo1.jpg','photo2.jpg','photo3.jpg','photo4.jpg','photo5.jpg',
@@ -766,7 +1107,7 @@
             if (e.target === e.currentTarget) closePhotoModal();
         });
 
-        // Restaurant clues (clue 3 moved to last — it's the easiest)
+        // Restaurant clues (easiest last)
         const clues = [
             'הגינה המרהיבה של המקום עוצבה על ידי פייט אודולף (Piet Oudolf), אדריכל הנוף האגדי שעיצב את פארק ה"היי-ליין" (High Line) המפורסם בניו יורק.',
             'על עיצוב הפנים של המקום אחראי סטודיו הבוטיק הצרפתי הנחשב Liaigre. זהו הפרויקט הראשון (והיחיד) שלהם בישראל.',
@@ -784,10 +1125,7 @@
             const btns = document.querySelectorAll('.clue-btn');
 
             if (btns[index].classList.contains('revealed')) return;
-
-            if (cooldownActive) {
-                return;
-            }
+            if (cooldownActive) return;
 
             const clueText = document.getElementById('clue-text');
             const clueReveal = document.getElementById('clue-reveal');
@@ -803,7 +1141,6 @@
                 return;
             }
 
-            // Start 3 min cooldown
             cooldownActive = true;
             let remaining = 180;
             const cooldownEl = document.getElementById('clue-cooldown');
@@ -829,16 +1166,17 @@
             const input = document.getElementById('guess-input').value.trim().toLowerCase();
             const result = document.getElementById('guess-result');
 
-            if (input.includes('r48') || input.includes('R48') || input.includes('אר 48') || input.includes('r 48')) {
-                result.textContent = '🎉🎉🎉 נכוווון! R48! 🎉🎉🎉';
-                result.style.color = '#00b894';
+            if (input.includes('r48') || input.includes('r 48') || input.includes('אר 48') || input.includes('אר48')) {
+                result.textContent = '— R48 — Correct';
+                result.style.color = '#292929';
                 burstConfetti();
             } else {
-                result.textContent = '❌ לא נכון... נסי שוב!';
-                result.style.color = '#ee5a24';
+                result.textContent = '✗ Not quite — try again';
+                result.style.color = '#292929';
             }
         }
 
+        // Unlock date
         const UNLOCK_DATE = new Date('2026-05-24T00:00:00');
 
         function isUnlocked() {
@@ -870,7 +1208,7 @@
                     if (countdown) countdown.remove();
                     const hint = document.createElement('span');
                     hint.className = 'click-hint';
-                    hint.textContent = 'Click to open!';
+                    hint.textContent = 'Open';
                     box.querySelector('.box-body').appendChild(hint);
                 });
             } else {
@@ -881,7 +1219,6 @@
             }
         }
 
-        // Add countdown elements to locked boxes
         document.querySelectorAll('.gift-box.locked .box-body').forEach(body => {
             const countdown = document.createElement('div');
             countdown.className = 'countdown';
@@ -892,34 +1229,18 @@
         updateLockState();
         setInterval(updateLockState, 1000);
 
-        // Create floating sparkles
-        function createSparkles() {
-            for (let i = 0; i < 20; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = Math.random() * 100 + 'vw';
-                sparkle.style.top = Math.random() * 100 + 'vh';
-                sparkle.style.animationDelay = Math.random() * 3 + 's';
-                sparkle.style.width = (Math.random() * 4 + 3) + 'px';
-                sparkle.style.height = sparkle.style.width;
-                document.body.appendChild(sparkle);
-            }
-        }
-        createSparkles();
-
-        // Confetti burst
+        // Confetti — monochrome
         function burstConfetti() {
-            const colors = ['#ff6b6b', '#48dbfb', '#feca57', '#ff9f43', '#ee5a24', '#0abde3', '#a29bfe', '#fd79a8', '#00b894'];
-            for (let i = 0; i < 60; i++) {
+            const colors = ['#292929', '#000000', '#ffffff', '#e0e0e0', '#555555'];
+            for (let i = 0; i < 40; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.width = (Math.random() * 10 + 5) + 'px';
-                confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                confetti.style.width = (Math.random() * 6 + 3) + 'px';
+                confetti.style.height = (Math.random() * 14 + 4) + 'px';
                 confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
                 confetti.style.animation = `confetti-fall ${Math.random() * 2 + 2}s linear forwards`;
-                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                confetti.style.animationDelay = Math.random() * 0.4 + 's';
                 document.body.appendChild(confetti);
                 setTimeout(() => confetti.remove(), 4000);
             }
@@ -929,23 +1250,22 @@
         function openBox(num) {
             const box = document.querySelector(`.box-${num}`);
 
-            // Check if locked
             if (box.classList.contains('locked')) {
-                box.style.transform = 'scale(0.95)';
-                box.querySelector('.lock-icon').style.fontSize = '3rem';
+                box.style.transform = 'scale(0.98)';
+                box.querySelector('.lock-icon').style.fontSize = '2rem';
                 setTimeout(() => {
                     box.style.transform = '';
-                    box.querySelector('.lock-icon').style.fontSize = '2.2rem';
-                }, 300);
+                    box.querySelector('.lock-icon').style.fontSize = '1.6rem';
+                }, 200);
                 return;
             }
 
-            box.style.transform = 'scale(0.9) rotateY(10deg)';
+            box.style.opacity = '0.5';
             setTimeout(() => {
-                box.style.transform = '';
+                box.style.opacity = '1';
                 document.getElementById(`modal-${num}`).classList.add('active');
                 burstConfetti();
-            }, 200);
+            }, 120);
         }
 
         // Close modal
@@ -953,7 +1273,6 @@
             document.getElementById(`modal-${num}`).classList.remove('active');
         }
 
-        // Close modal on overlay click
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) {
@@ -962,10 +1281,10 @@
             });
         });
 
-        // Close on Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+                document.getElementById('photo-modal').classList.remove('active');
             }
         });
     </script>
