@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Dorine!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '26';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 45vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.06);
+            z-index: 0;
+            pointer-events: none;
+            letter-spacing: -5vw;
+        }
+
+        .surprise-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            color: #fff;
+            border: none;
+            padding: 14px 26px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.4);
+            z-index: 50;
+            animation: envelope-bounce 2s ease-in-out infinite;
+            transform-origin: top center;
+        }
+
+        .surprise-btn::before {
+            content: '✉️ ';
+        }
+
+        @keyframes envelope-bounce {
+            0% { transform: translateY(-8px) rotate(-3deg); }
+            25% { transform: translateY(6px) rotate(2deg); }
+            50% { transform: translateY(-4px) rotate(-1deg); }
+            75% { transform: translateY(3px) rotate(1deg); }
+            100% { transform: translateY(-8px) rotate(-3deg); }
+        }
+
+        .surprise-btn:hover {
+            animation: envelope-bounce 0.6s ease-in-out infinite;
+            box-shadow: 0 6px 20px rgba(232, 67, 147, 0.6);
+        }
+
+        .surprise-btn:active {
+            animation: none;
+            transform: scale(0.9);
+        }
+
+        .photo-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 300;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .photo-modal.active {
+            display: flex;
+        }
+
+        .photo-modal img {
+            max-width: 85%;
+            max-height: 80vh;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideUp 0.4s ease;
+        }
+
+        .photo-modal .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2.5rem;
+            color: #fff;
+            z-index: 301;
+        }
+
+        .pfp-container {
+            margin-bottom: 20px;
+        }
+
+        .pfp {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(255,255,255,0.8);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: bounce 2s infinite;
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.3rem;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .boxes-container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+        }
+
+        .gift-box-wrapper {
+            perspective: 1000px;
+        }
+
+        .gift-box {
+            width: 280px;
+            height: 320px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+
+        .gift-box:hover .box-body {
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .box-body {
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .box-1 .box-body {
+            background: linear-gradient(145deg, #ff6b6b, #ee5a24);
+        }
+
+        .box-2 .box-body {
+            background: linear-gradient(145deg, #48dbfb, #0abde3);
+        }
+
+        .box-3 .box-body {
+            background: linear-gradient(145deg, #feca57, #ff9f43);
+        }
+
+        .ribbon-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.4);
+        }
+
+        .ribbon-v {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 30px;
+            height: 100%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.4);
+        }
+
+        .bow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            z-index: 2;
+        }
+
+        .bow::before, .bow::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50% 50% 0 50%;
+            background: rgba(255,255,255,0.6);
+        }
+
+        .bow::before {
+            top: 5px;
+            left: 5px;
+            transform: rotate(-45deg);
+        }
+
+        .bow::after {
+            top: 5px;
+            right: 5px;
+            transform: rotate(45deg);
+            border-radius: 50% 50% 50% 0;
+        }
+
+        .box-number {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .box-label {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.9);
+            font-size: 2.5rem;
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            animation: pulse 1.5s infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 24px;
+            padding: 50px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.5s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .modal-content p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .modal-content .emoji-big {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: #999;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-1 h2 { color: #ee5a24; }
+        .modal-2 h2 { color: #0abde3; }
+        .modal-3 h2 { color: #ff9f43; }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: -10px;
+            z-index: 200;
+            pointer-events: none;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Sparkles on page */
+        .sparkle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle-float 3s infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes sparkle-float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+            50% { transform: translateY(-20px) scale(1.5); opacity: 1; }
+        }
+
+        /* Gift image/icon in modal */
+        .gift-reveal {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .modal-1 .gift-reveal { background: linear-gradient(135deg, #ff6b6b22, #ee5a2422); }
+        .modal-2 .gift-reveal { background: linear-gradient(135deg, #48dbfb22, #0abde322); }
+        .modal-3 .gift-reveal { background: linear-gradient(135deg, #feca5722, #ff9f4322); }
+
+        .placeholder-note {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: #666;
+            border-left: 4px solid #ddd;
+        }
+
+        .clues-container {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 25px 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .clue-btn {
+            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
+            color: #fff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 3px 10px rgba(238, 90, 36, 0.3);
+        }
+
+        .clue-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 5px 15px rgba(238, 90, 36, 0.5);
+        }
+
+        .clue-btn:active {
+            transform: scale(0.95);
+        }
+
+        .clue-btn.revealed {
+            background: linear-gradient(135deg, #a0a0a0, #c0c0c0);
+            box-shadow: none;
+        }
+
+        .clue-reveal {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff5f5, #fff0eb);
+            border-radius: 16px;
+            border: 2px dashed #ee5a24;
+            animation: slideUp 0.4s ease;
+        }
+
+        .clue-reveal.active {
+            display: block;
+        }
+
+        .clue-reveal p {
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.7;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .clue-cooldown {
+            color: #ee5a24;
+            font-size: 0.95rem;
+            font-weight: bold;
+            margin-top: 10px;
+            min-height: 24px;
+        }
+
+        .guess-container {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f0fff0, #e8fce8);
+            border-radius: 16px;
+            border: 2px solid #00b894;
+            animation: slideUp 0.4s ease;
+            direction: rtl;
+        }
+
+        .guess-container.active {
+            display: block;
+        }
+
+        .guess-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+        }
+
+        .guess-input:focus {
+            outline: none;
+            border-color: #ee5a24;
+        }
+
+        .guess-btn {
+            background: linear-gradient(135deg, #00b894, #00a383);
+            color: #fff;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .guess-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .guess-result {
+            margin-top: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        /* Lock styles */
+        .gift-box.locked .box-body {
+            filter: grayscale(0.3) brightness(0.85);
+        }
+
+        .gift-box.locked {
+            cursor: not-allowed;
+        }
+
+        .gift-box.locked:hover {
+            transform: scale(1.02);
+        }
+
+        .lock-overlay {
+            position: absolute;
+            bottom: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            z-index: 3;
+        }
+
+        .lock-icon {
+            font-size: 2.2rem;
+            animation: shake 2s infinite;
+        }
+
+        @keyframes shake {
+            0%, 90%, 100% { transform: rotate(0deg); }
+            92% { transform: rotate(-5deg); }
+            94% { transform: rotate(5deg); }
+            96% { transform: rotate(-5deg); }
+            98% { transform: rotate(5deg); }
+        }
+
+        .lock-date {
+            color: rgba(255,255,255,0.95);
+            font-size: 0.85rem;
+            font-weight: bold;
+            background: rgba(0,0,0,0.4);
+            padding: 4px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        /* Countdown timer on locked boxes */
+        .countdown {
+            position: absolute;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.95);
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: rgba(0,0,0,0.35);
+            padding: 6px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+            z-index: 3;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .subtitle { font-size: 1rem; margin-bottom: 30px; }
+            .boxes-container { gap: 25px; }
+            .gift-box { width: 240px; height: 280px; }
+            .modal-content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <button class="surprise-btn" onclick="showRandomPhoto()">Surprise!</button>
+
+    <div class="pfp-container">
+        <img src="dorine.png" alt="Dorine" class="pfp">
+    </div>
+    <h1>Happy Birthday, Dorine!</h1>
+    <p class="subtitle">You have 3 surprises waiting just for you... click to unwrap! 🎂</p>
+
+    <div class="boxes-container">
+        <!-- Box 1: Restaurant (open now) -->
+        <div class="gift-box-wrapper">
+            <div class="gift-box box-1" onclick="openBox(1)">
+                <div class="box-body">
+                    <div class="ribbon-h"></div>
+                    <div class="ribbon-v"></div>
+                    <div class="bow"></div>
+                    <span class="box-label">🍽️</span>
+                    <span class="box-number">Box #1</span>
+                    <span class="click-hint">Click to open!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Box 2: Card (locked until 24/05) -->
+        <div class="gift-box-wrapper">
+            <div class="gift-box box-2 locked" onclick="openBox(2)">
+                <div class="box-body">
+                    <div class="ribbon-h"></div>
+                    <div class="ribbon-v"></div>
+                    <div class="bow"></div>
+                    <span class="box-label">💌</span>
+                    <div class="lock-overlay">
+                        <span class="lock-icon">🔒</span>
+                        <span class="lock-date">Opens 24/05</span>
+                    </div>
+                    <span class="box-number">Box #2</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Box 3: Gift (locked until 24/05) -->
+        <div class="gift-box-wrapper">
+            <div class="gift-box box-3 locked" onclick="openBox(3)">
+                <div class="box-body">
+                    <div class="ribbon-h"></div>
+                    <div class="ribbon-v"></div>
+                    <div class="bow"></div>
+                    <span class="box-label">🎁</span>
+                    <div class="lock-overlay">
+                        <span class="lock-icon">🔒</span>
+                        <span class="lock-date">Opens 24/05</span>
+                    </div>
+                    <span class="box-number">Box #3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 1: The Restaurant (open now) -->
+    <div class="modal-overlay" id="modal-1">
+        <div class="modal-content modal-1">
+            <button class="modal-close" onclick="closeModal(1)">&times;</button>
+            <div class="gift-reveal">🍾</div>
+            <h2>Dorine, Dinner Awaits!</h2>
+            <p>Can you guess where we're going? Pick a clue!</p>
+            <div class="clues-container">
+                <button class="clue-btn" onclick="revealClue(0)">רמז #1</button>
+                <button class="clue-btn" onclick="revealClue(1)">רמז #2</button>
+                <button class="clue-btn" onclick="revealClue(2)">רמז #3</button>
+                <button class="clue-btn" onclick="revealClue(3)">רמז #4</button>
+                <button class="clue-btn" onclick="revealClue(4)">רמז #5</button>
+                <button class="clue-btn" onclick="revealClue(5)">רמז #6</button>
+            </div>
+            <div class="clue-cooldown" id="clue-cooldown"></div>
+            <div class="clue-reveal" id="clue-reveal">
+                <p id="clue-text"></p>
+            </div>
+            <div class="guess-container" id="guess-container">
+                <p style="font-weight: bold; margin-bottom: 10px;">?אז... לאן הולכים</p>
+                <input type="text" id="guess-input" class="guess-input" placeholder="...הכניסי את הניחוש שלך">
+                <button class="guess-btn" onclick="checkGuess()">בדקי!</button>
+                <p id="guess-result" class="guess-result"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: The Card (locked until 24/05) -->
+    <div class="modal-overlay" id="modal-2">
+        <div class="modal-content modal-2">
+            <button class="modal-close" onclick="closeModal(2)">&times;</button>
+            <div class="gift-reveal">💝</div>
+            <h2>Dear Dorine,</h2>
+            <p style="font-style: italic; font-size: 1.3rem; color: #333; line-height: 1.8;">
+                "Wishing you the happiest of birthdays, Dorine! May this year bring you everything your heart desires. You deserve all the joy in the world."
+            </p>
+            <div class="placeholder-note">
+                <strong>Replace with your personal birthday message for Dorine</strong><br>
+                Write something heartfelt and personal here!
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: The Gift (locked until 24/05) -->
+    <div class="modal-overlay" id="modal-3">
+        <div class="modal-content modal-3">
+            <button class="modal-close" onclick="closeModal(3)">&times;</button>
+            <div class="gift-reveal">🎉</div>
+            <h2>Dorine's Gift!</h2>
+            <p>Here's what's waiting for you, Dorine...</p>
+            <div class="placeholder-note">
+                <strong>Invoice / Gift details go here</strong><br>
+                Replace this with the actual gift invoice or description. Could be a gadget, experience, or anything special!
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo surprise modal -->
+    <div class="photo-modal" id="photo-modal">
+        <button class="modal-close" onclick="closePhotoModal()">&times;</button>
+        <img id="random-photo" src="" alt="Surprise!">
+    </div>
+
+    <script>
+        // Photo pool
+        const photos = [
+            'photo1.jpg','photo2.jpg','photo3.jpg','photo4.jpg','photo5.jpg',
+            'photo6.jpg','photo7.jpg','photo8.jpg','photo9.jpg','photo10.jpg',
+            'photo11.jpg','photo12.jpg','photo13.jpg','photo14.jpg','photo15.jpg',
+            'photo16.jpg','photo17.jpg','photo18.jpg','photo19.jpg','photo20.jpg',
+            'photo21.jpg'
+        ];
+
+        function showRandomPhoto() {
+            if (photos.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * photos.length);
+            document.getElementById('random-photo').src = 'photos/' + photos[randomIndex];
+            document.getElementById('photo-modal').classList.add('active');
+            burstConfetti();
+        }
+
+        function closePhotoModal() {
+            document.getElementById('photo-modal').classList.remove('active');
+        }
+
+        document.getElementById('photo-modal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closePhotoModal();
+        });
+
+        // Restaurant clues (clue 3 moved to last — it's the easiest)
+        const clues = [
+            'הגינה המרהיבה של המקום עוצבה על ידי פייט אודולף (Piet Oudolf), אדריכל הנוף האגדי שעיצב את פארק ה"היי-ליין" (High Line) המפורסם בניו יורק.',
+            'על עיצוב הפנים של המקום אחראי סטודיו הבוטיק הצרפתי הנחשב Liaigre. זהו הפרויקט הראשון (והיחיד) שלהם בישראל.',
+            'לא הולכים להזמין שם מנה ראשונה ועיקרית מהתפריט. החוויה מבוססת על קונספט של "שולחן שף" (Chef\'s Table) עם ארוחת טעימות קבועה ומרובת מנות שמשתנה כל הזמן.',
+            'אנחנו הולכים למבנה לשימור שנבנה במקור בשנת 1933, המשלב אלמנטים של הסגנון הבינלאומי (באוהאוס) עם אדריכלות אקלקטית.',
+            'המקום מתפקד גם כחלל אמנות, ומוצג בו אוסף אוצרות קפדני של אמנות ישראלית עכשווית, מה שנותן תחושה של סעודה בתוך גלריה פרטית.',
+            'המקום שייך לקבוצת המסעדנות המפורסמת והחזקה ביותר בתל אביב, אבל הוא הכי אקסקלוסיבי, שונה ואינטימי מכל שאר המקומות שלהם.'
+        ];
+
+        let revealedCount = 0;
+        let cooldownActive = false;
+        let cooldownInterval = null;
+
+        function revealClue(index) {
+            const btns = document.querySelectorAll('.clue-btn');
+
+            if (btns[index].classList.contains('revealed')) return;
+
+            if (cooldownActive) {
+                return;
+            }
+
+            const clueText = document.getElementById('clue-text');
+            const clueReveal = document.getElementById('clue-reveal');
+
+            clueText.textContent = clues[index];
+            clueReveal.classList.add('active');
+            btns[index].classList.add('revealed');
+            revealedCount++;
+
+            if (revealedCount >= clues.length) {
+                document.getElementById('guess-container').classList.add('active');
+                document.getElementById('clue-cooldown').textContent = '';
+                return;
+            }
+
+            // Start 3 min cooldown
+            cooldownActive = true;
+            let remaining = 180;
+            const cooldownEl = document.getElementById('clue-cooldown');
+
+            cooldownInterval = setInterval(() => {
+                remaining--;
+                const min = Math.floor(remaining / 60);
+                const sec = remaining % 60;
+                cooldownEl.textContent = `הרמז הבא נפתח בעוד ${min}:${sec.toString().padStart(2, '0')}`;
+
+                if (remaining <= 0) {
+                    clearInterval(cooldownInterval);
+                    cooldownActive = false;
+                    cooldownEl.textContent = '!אפשר לפתוח רמז חדש';
+                    setTimeout(() => { cooldownEl.textContent = ''; }, 2000);
+                }
+            }, 1000);
+
+            cooldownEl.textContent = 'הרמז הבא נפתח בעוד 3:00';
+        }
+
+        function checkGuess() {
+            const input = document.getElementById('guess-input').value.trim().toLowerCase();
+            const result = document.getElementById('guess-result');
+
+            if (input.includes('r48') || input.includes('R48') || input.includes('אר 48') || input.includes('r 48')) {
+                result.textContent = '🎉🎉🎉 נכוווון! R48! 🎉🎉🎉';
+                result.style.color = '#00b894';
+                burstConfetti();
+            } else {
+                result.textContent = '❌ לא נכון... נסי שוב!';
+                result.style.color = '#ee5a24';
+            }
+        }
+
+        const UNLOCK_DATE = new Date('2026-05-24T00:00:00');
+
+        function isUnlocked() {
+            return new Date() >= UNLOCK_DATE;
+        }
+
+        function getTimeRemaining() {
+            const now = new Date();
+            const diff = UNLOCK_DATE - now;
+            if (diff <= 0) return null;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            if (days > 0) return `${days}d ${hours}h ${minutes}m`;
+            return `${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        function updateLockState() {
+            const unlocked = isUnlocked();
+            const lockedBoxes = document.querySelectorAll('.gift-box.locked');
+
+            if (unlocked) {
+                lockedBoxes.forEach(box => {
+                    box.classList.remove('locked');
+                    const lockOverlay = box.querySelector('.lock-overlay');
+                    const countdown = box.querySelector('.countdown');
+                    if (lockOverlay) lockOverlay.remove();
+                    if (countdown) countdown.remove();
+                    const hint = document.createElement('span');
+                    hint.className = 'click-hint';
+                    hint.textContent = 'Click to open!';
+                    box.querySelector('.box-body').appendChild(hint);
+                });
+            } else {
+                const remaining = getTimeRemaining();
+                document.querySelectorAll('.countdown').forEach(el => {
+                    el.textContent = remaining;
+                });
+            }
+        }
+
+        // Add countdown elements to locked boxes
+        document.querySelectorAll('.gift-box.locked .box-body').forEach(body => {
+            const countdown = document.createElement('div');
+            countdown.className = 'countdown';
+            countdown.textContent = getTimeRemaining() || '';
+            body.appendChild(countdown);
+        });
+
+        updateLockState();
+        setInterval(updateLockState, 1000);
+
+        // Create floating sparkles
+        function createSparkles() {
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.width = (Math.random() * 4 + 3) + 'px';
+                sparkle.style.height = sparkle.style.width;
+                document.body.appendChild(sparkle);
+            }
+        }
+        createSparkles();
+
+        // Confetti burst
+        function burstConfetti() {
+            const colors = ['#ff6b6b', '#48dbfb', '#feca57', '#ff9f43', '#ee5a24', '#0abde3', '#a29bfe', '#fd79a8', '#00b894'];
+            for (let i = 0; i < 60; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                confetti.style.animation = `confetti-fall ${Math.random() * 2 + 2}s linear forwards`;
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 4000);
+            }
+        }
+
+        // Open box
+        function openBox(num) {
+            const box = document.querySelector(`.box-${num}`);
+
+            // Check if locked
+            if (box.classList.contains('locked')) {
+                box.style.transform = 'scale(0.95)';
+                box.querySelector('.lock-icon').style.fontSize = '3rem';
+                setTimeout(() => {
+                    box.style.transform = '';
+                    box.querySelector('.lock-icon').style.fontSize = '2.2rem';
+                }, 300);
+                return;
+            }
+
+            box.style.transform = 'scale(0.9) rotateY(10deg)';
+            setTimeout(() => {
+                box.style.transform = '';
+                document.getElementById(`modal-${num}`).classList.add('active');
+                burstConfetti();
+            }, 200);
+        }
+
+        // Close modal
+        function closeModal(num) {
+            document.getElementById(`modal-${num}`).classList.remove('active');
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+            }
+        });
+    </script>
+</body>
+</html>
