@@ -837,6 +837,34 @@
             color: var(--color-ink-black);
         }
 
+        .music-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 16px;
+        }
+
+        .music-bars span {
+            width: 3px;
+            background: var(--color-ink-black);
+            border-radius: 1px;
+        }
+
+        .music-bars.playing span {
+            animation: bar-dance 0.8s ease-in-out infinite;
+        }
+
+        .music-bars span:nth-child(1) { height: 6px; animation-delay: 0s; }
+        .music-bars span:nth-child(2) { height: 10px; animation-delay: 0.15s; }
+        .music-bars span:nth-child(3) { height: 4px; animation-delay: 0.3s; }
+        .music-bars span:nth-child(4) { height: 12px; animation-delay: 0.1s; }
+        .music-bars span:nth-child(5) { height: 7px; animation-delay: 0.25s; }
+
+        @keyframes bar-dance {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.3); }
+        }
+
         .music-progress {
             flex: 1;
             height: 2px;
@@ -1211,6 +1239,9 @@
     <!-- Music Player -->
     <div class="music-player" id="music-player">
         <button class="music-toggle" id="music-toggle" onclick="toggleMusic()">▶</button>
+        <div class="music-bars" id="music-bars">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
         <div class="music-info">
             <span class="music-title">Dorine 26</span>
             <div class="music-progress">
@@ -1560,14 +1591,18 @@
         const musicBar = document.getElementById('music-bar');
         let musicPlaying = false;
 
+        const musicBars = document.getElementById('music-bars');
+
         function toggleMusic() {
             if (musicPlaying) {
                 audio.pause();
                 musicToggle.textContent = '▶';
+                musicBars.classList.remove('playing');
                 musicPlaying = false;
             } else {
                 audio.play();
                 musicToggle.textContent = '❚❚';
+                musicBars.classList.add('playing');
                 musicPlaying = true;
             }
         }
@@ -1586,6 +1621,7 @@
                 setTimeout(() => {
                     audio.play();
                     musicToggle.textContent = '❚❚';
+                    musicBars.classList.add('playing');
                     musicPlaying = true;
                 }, 1700);
             }
