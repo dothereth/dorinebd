@@ -785,6 +785,41 @@
             min-height: 20px;
         }
 
+        /* Activity Arrow */
+        .activity-arrow {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            z-index: 1;
+            animation: arrow-glow 1.5s ease-in-out infinite;
+        }
+
+        .arrow-text {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-ink-black);
+        }
+
+        .arrow-icon {
+            font-size: 20px;
+            color: var(--color-ink-black);
+            animation: arrow-bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes arrow-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
+        @keyframes arrow-glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
         /* Friday Activity */
         .activity-section {
             margin-top: 25px;
@@ -1013,6 +1048,10 @@
     </div>
 
     <!-- Friday Activity Section -->
+    <div class="activity-arrow">
+        <span class="arrow-text">NEW</span>
+        <span class="arrow-icon">↓</span>
+    </div>
     <div class="activity-section" id="activity-section">
         <div class="activity-box" onclick="openActivity()">
             <span class="box-title">Friday Activity</span>
@@ -1021,6 +1060,7 @@
             <div class="activity-lock" id="activity-lock">
                 <span class="lock-icon">🔒</span>
                 <span class="lock-date">Opens Friday</span>
+                <span class="countdown" id="activity-countdown"></span>
             </div>
             <span class="click-hint activity-hint" id="activity-hint" style="display:none;">Open</span>
         </div>
@@ -1331,19 +1371,27 @@
         setInterval(updateLockState, 1000);
 
         // Friday activity lock (opens Friday May 23)
-        const FRIDAY_DATE = new Date('2026-05-23T00:00:00');
+        const FRIDAY_DATE = new Date('2026-05-23T07:00:00');
 
         function updateActivityLock() {
             const activityBox = document.querySelector('.activity-box');
             const activityLock = document.getElementById('activity-lock');
             const activityHint = document.getElementById('activity-hint');
+            const activityCountdown = document.getElementById('activity-countdown');
 
-            if (new Date() >= FRIDAY_DATE) {
+            const now = new Date();
+            const diff = FRIDAY_DATE - now;
+
+            if (diff <= 0) {
                 activityBox.classList.remove('locked-activity');
                 if (activityLock) activityLock.style.display = 'none';
                 activityHint.style.display = '';
             } else {
                 activityBox.classList.add('locked-activity');
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                activityCountdown.textContent = `${hours}h ${minutes}m ${seconds}s`;
             }
         }
 
