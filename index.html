@@ -30,7 +30,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 20px 20px 60px;
             position: relative;
             overflow-x: hidden;
         }
@@ -785,6 +785,74 @@
             min-height: 20px;
         }
 
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 48px;
+            background: var(--color-canvas-white);
+            border-top: 1px solid var(--color-ink-black);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 12px;
+            z-index: 90;
+        }
+
+        .music-toggle {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--color-ink-black);
+            background: transparent;
+            color: var(--color-ink-black);
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s, color 0.15s;
+            flex-shrink: 0;
+        }
+
+        .music-toggle:hover {
+            background: var(--color-ink-black);
+            color: var(--color-canvas-white);
+        }
+
+        .music-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .music-title {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+            color: var(--color-ink-black);
+        }
+
+        .music-progress {
+            flex: 1;
+            height: 2px;
+            background: var(--color-ink-black);
+            opacity: 0.2;
+            position: relative;
+        }
+
+        .music-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--color-ink-black);
+            opacity: 1;
+            transition: width 0.3s linear;
+        }
+
         /* Activity Arrow */
         .activity-arrow {
             margin-top: 20px;
@@ -1140,6 +1208,20 @@
         </div>
     </div>
 
+    <!-- Music Player -->
+    <div class="music-player" id="music-player">
+        <button class="music-toggle" id="music-toggle" onclick="toggleMusic()">▶</button>
+        <div class="music-info">
+            <span class="music-title">Dorine 26</span>
+            <div class="music-progress">
+                <div class="music-bar" id="music-bar"></div>
+            </div>
+        </div>
+    </div>
+    <audio id="music-audio" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Photo modal -->
     <div class="photo-modal" id="photo-modal">
         <button class="modal-close" onclick="closePhotoModal()">&times;</button>
@@ -1471,6 +1553,44 @@
                 document.getElementById('photo-modal').classList.remove('active');
             }
         });
+
+        // Music player
+        const audio = document.getElementById('music-audio');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicBar = document.getElementById('music-bar');
+        let musicPlaying = false;
+
+        function toggleMusic() {
+            if (musicPlaying) {
+                audio.pause();
+                musicToggle.textContent = '▶';
+                musicPlaying = false;
+            } else {
+                audio.play();
+                musicToggle.textContent = '❚❚';
+                musicPlaying = true;
+            }
+        }
+
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                musicBar.style.width = (audio.currentTime / audio.duration * 100) + '%';
+            }
+        });
+
+        // Auto-play after unlock
+        const originalTryUnlock = tryUnlock;
+        tryUnlock = function() {
+            const input = document.getElementById('unlock-input').value.trim().toLowerCase();
+            if (input === PASSWORD) {
+                setTimeout(() => {
+                    audio.play();
+                    musicToggle.textContent = '❚❚';
+                    musicPlaying = true;
+                }, 1700);
+            }
+            originalTryUnlock();
+        };
     </script>
 </body>
 </html>
