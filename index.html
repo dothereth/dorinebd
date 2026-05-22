@@ -785,6 +785,77 @@
             min-height: 20px;
         }
 
+        /* Friday Activity */
+        .activity-section {
+            margin-top: 25px;
+            z-index: 1;
+            width: 100%;
+            max-width: 960px;
+        }
+
+        .activity-box {
+            border: 1px solid var(--color-ink-black);
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .activity-box:hover {
+            background: #f8f8f8;
+        }
+
+        .activity-box.locked-activity {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .activity-box.locked-activity:hover {
+            background: transparent;
+        }
+
+        .activity-emoji {
+            font-size: 2.5rem;
+            margin: 8px 0;
+        }
+
+        .activity-teaser {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--color-ink-black);
+        }
+
+        .activity-lock {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .activity-link {
+            display: inline-block;
+            background: var(--color-ink-black);
+            color: var(--color-canvas-white);
+            text-decoration: none;
+            padding: 0 24px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            font-family: var(--font-primary);
+            transition: opacity 0.15s;
+        }
+
+        .activity-link:hover {
+            opacity: 0.8;
+        }
+
         @media (max-width: 768px) {
             body { padding: 30px 16px; }
             h1 { font-size: 32px; letter-spacing: -0.64px; }
@@ -938,6 +1009,36 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Friday Activity Section -->
+    <div class="activity-section" id="activity-section">
+        <div class="activity-box" onclick="openActivity()">
+            <span class="box-title">Friday Activity</span>
+            <span class="activity-emoji">📖</span>
+            <p class="activity-teaser">Wake up Friday for a special activity together</p>
+            <div class="activity-lock" id="activity-lock">
+                <span class="lock-icon">🔒</span>
+                <span class="lock-date">Opens Friday</span>
+            </div>
+            <span class="click-hint activity-hint" id="activity-hint" style="display:none;">Open</span>
+        </div>
+    </div>
+
+    <!-- Activity Modal -->
+    <div class="modal-overlay" id="modal-activity">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('activity')">&times;</button>
+            <div class="gift-reveal">📖</div>
+            <h2>Let's Create a Memory</h2>
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                Every trip we take, every moment we share — they deserve to live somewhere beautiful.<br><br>
+                This Friday, we're sitting together and creating our own travel photobook. Just us, our favourite photos, and a story only we know.
+            </p>
+            <a href="https://www.pixoryofficial.com/travel-photobooks" target="_blank" class="activity-link">
+                Let's begin →
+            </a>
         </div>
     </div>
 
@@ -1228,6 +1329,41 @@
 
         updateLockState();
         setInterval(updateLockState, 1000);
+
+        // Friday activity lock (opens Friday May 23)
+        const FRIDAY_DATE = new Date('2026-05-23T00:00:00');
+
+        function updateActivityLock() {
+            const activityBox = document.querySelector('.activity-box');
+            const activityLock = document.getElementById('activity-lock');
+            const activityHint = document.getElementById('activity-hint');
+
+            if (new Date() >= FRIDAY_DATE) {
+                activityBox.classList.remove('locked-activity');
+                if (activityLock) activityLock.style.display = 'none';
+                activityHint.style.display = '';
+            } else {
+                activityBox.classList.add('locked-activity');
+            }
+        }
+
+        updateActivityLock();
+        setInterval(updateActivityLock, 1000);
+
+        function openActivity() {
+            const activityBox = document.querySelector('.activity-box');
+            if (activityBox.classList.contains('locked-activity')) {
+                activityBox.style.transform = 'scale(0.98)';
+                setTimeout(() => { activityBox.style.transform = ''; }, 200);
+                return;
+            }
+            activityBox.style.opacity = '0.5';
+            setTimeout(() => {
+                activityBox.style.opacity = '1';
+                document.getElementById('modal-activity').classList.add('active');
+                burstConfetti();
+            }, 120);
+        }
 
         // Confetti — monochrome
         function burstConfetti() {
