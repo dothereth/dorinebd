@@ -881,91 +881,296 @@
             transition: width 0.3s linear;
         }
 
-        /* Activity Arrow */
-        .activity-arrow {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            z-index: 1;
-            animation: arrow-glow 1.5s ease-in-out infinite;
+        /* Envelope */
+        .envelope-pin {
+            margin: 16px 0;
         }
 
-        .arrow-text {
+        .envelope-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 90px;
+            margin: 5px auto 5px;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            border: 1px solid var(--color-ink-black);
+            background: var(--color-canvas-white);
+            z-index: 2;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 45px;
+            border: 1px solid var(--color-ink-black);
+            border-bottom: none;
+            background: var(--color-canvas-white);
+            clip-path: polygon(0 100%, 50% 0%, 100% 100%);
+            transform-origin: top center;
+            z-index: 3;
+            transition: transform 0.6s ease;
+        }
+
+        .envelope-flap.open {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .letter {
+            position: relative;
+            margin-top: -30px;
+            width: 100%;
+            background: var(--color-canvas-white);
+            border: 1px solid var(--color-ink-black);
+            padding: 25px 40px;
+            z-index: 4;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.8s ease 0.4s, opacity 0.6s ease 0.4s;
+            max-height: none;
+            overflow-y: visible;
+        }
+
+        .letter.rise {
+            transform: translateY(-20px);
+            opacity: 1;
+        }
+
+        .letter-content h2 {
+            font-size: 20px;
+        }
+
+        .letter-content p {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* Gift Box 3D */
+        .gift-box-3d {
+            perspective: 1200px;
+            width: 500px;
+            height: 400px;
+            margin: 30px auto;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .gift-box-base {
+            width: 500px;
+            height: 280px;
+            border: 2px solid var(--color-ink-black);
+            position: absolute;
+            bottom: 0;
+            background: var(--color-canvas-white);
+            overflow: visible;
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        .gift-box-base.fade-out {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .gift-box-lid {
+            width: 520px;
+            height: 50px;
+            position: absolute;
+            bottom: 280px;
+            left: -10px;
+            transform-origin: bottom right;
+            transform: rotateZ(0deg);
+            transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.5s ease 2s;
+        }
+
+        .gift-box-lid.open {
+            transform: rotateZ(12deg) translateY(-100px) translateX(40px);
+            opacity: 0;
+        }
+
+        .lid-face {
+            position: absolute;
+            border: 2px solid var(--color-ink-black);
+            background: var(--color-canvas-white);
+        }
+
+        .lid-top {
+            width: 520px;
+            height: 50px;
+            top: 0;
+            left: 0;
+        }
+
+        .lid-front {
+            display: none;
+        }
+
+        .gift-ribbon {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 100%;
+            border-left: 2px solid var(--color-ink-black);
+            border-right: 2px solid var(--color-ink-black);
+            opacity: 0.3;
+            transition: opacity 1s ease;
+        }
+
+        .gift-ribbon-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 40px;
+            border-top: 2px solid var(--color-ink-black);
+            border-bottom: 2px solid var(--color-ink-black);
+            opacity: 0.3;
+            transition: opacity 1s ease;
+        }
+
+        .gift-box-base.opened .gift-ribbon,
+        .gift-box-base.opened .gift-ribbon-h {
+            opacity: 0;
+        }
+
+        /* Gift image reveal */
+        .gift-image-reveal {
+            display: none;
+            text-align: center;
+            animation: giftZoomIn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .gift-image-reveal img {
+            max-width: 95%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        @keyframes giftZoomIn {
+            from { transform: scale(0.3); opacity: 0; }
+            to { transform: scale(1.05); opacity: 1; }
+        }
+
+        /* Fireworks */
+        .firework {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: fireworkBurst 1.5s ease-out forwards;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes fireworkBurst {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--fx), var(--fy)) scale(0); opacity: 0; }
+        }
+
+        /* Archive */
+        .archive-section {
+            position: fixed;
+            bottom: 70px;
+            left: 20px;
+            z-index: 50;
+            width: 220px;
+        }
+
+        .archive-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border: 1px solid var(--color-ink-black);
+            background: var(--color-canvas-white);
+            cursor: pointer;
+            font-family: var(--font-primary);
+            transition: background 0.15s;
             font-size: 11px;
+        }
+
+        .archive-toggle:hover {
+            background: #f8f8f8;
+        }
+
+        .archive-label {
+            font-size: 10px;
             font-weight: 500;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             color: var(--color-ink-black);
         }
 
-        .arrow-icon {
-            font-size: 20px;
+        .archive-arrow {
+            font-size: 14px;
             color: var(--color-ink-black);
-            animation: arrow-bounce 1s ease-in-out infinite;
+            transition: transform 0.2s;
         }
 
-        @keyframes arrow-bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(6px); }
+        .archive-arrow.open {
+            transform: rotate(180deg);
         }
 
-        @keyframes arrow-glow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        /* Friday Activity */
-        .activity-section {
-            margin-top: 25px;
-            z-index: 1;
-            width: 100%;
-            max-width: 960px;
-        }
-
-        .activity-box {
+        .archive-content {
+            display: none;
             border: 1px solid var(--color-ink-black);
-            padding: 30px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: background 0.15s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
+            border-top: none;
         }
 
-        .activity-box:hover {
+        .archive-content.open {
+            display: block;
+        }
+
+        .archive-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            gap: 16px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .archive-item:hover {
             background: #f8f8f8;
         }
 
-        .activity-box.locked-activity {
-            cursor: not-allowed;
+        .archive-item:not(:last-child) {
+            border-bottom: 1px solid var(--color-ink-black);
+        }
+
+        .archive-date {
+            font-size: 12px;
+            font-weight: 400;
             opacity: 0.5;
+            min-width: 40px;
         }
 
-        .activity-box.locked-activity:hover {
-            background: transparent;
-        }
-
-        .activity-emoji {
-            font-size: 2.5rem;
-            margin: 8px 0;
-        }
-
-        .activity-teaser {
+        .archive-name {
+            flex: 1;
             font-size: 14px;
             font-weight: 300;
-            color: var(--color-ink-black);
         }
 
-        .activity-lock {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            margin-top: 8px;
+        .archive-status {
+            font-size: 12px;
+            opacity: 0.5;
         }
 
         .activity-link {
@@ -1112,24 +1317,21 @@
             </div>
         </div>
 
-        <!-- Box 2: Card (locked until 24/05) -->
+        <!-- Box 2: Card (open now) -->
         <div class="gift-box-wrapper">
-            <div class="gift-box box-2 locked" onclick="openBox(2)">
+            <div class="gift-box box-2" onclick="openBox(2)">
                 <div class="box-body">
                     <span class="box-title">Card</span>
                     <span class="box-number">02</span>
                     <span class="box-label">💌</span>
-                    <div class="lock-overlay">
-                        <span class="lock-icon">🔒</span>
-                        <span class="lock-date">Opens 24/05</span>
-                    </div>
+                    <span class="click-hint">Open</span>
                 </div>
             </div>
         </div>
 
-        <!-- Box 3: Gift (locked until 24/05) -->
+        <!-- Box 3: Gift -->
         <div class="gift-box-wrapper">
-            <div class="gift-box box-3 locked" onclick="openBox(3)">
+            <div class="gift-box box-3" onclick="openBox(3)">
                 <div class="box-body">
                     <span class="box-title">Gift</span>
                     <span class="box-number">03</span>
@@ -1143,22 +1345,18 @@
         </div>
     </div>
 
-    <!-- Friday Activity Section -->
-    <div class="activity-arrow">
-        <span class="arrow-text">NEW</span>
-        <span class="arrow-icon">↓</span>
-    </div>
-    <div class="activity-section" id="activity-section">
-        <div class="activity-box" onclick="openActivity()">
-            <span class="box-title">Friday Activity</span>
-            <span class="activity-emoji">📖</span>
-            <p class="activity-teaser">Wake up Friday for a special activity together</p>
-            <div class="activity-lock" id="activity-lock">
-                <span class="lock-icon">🔒</span>
-                <span class="lock-date">Opens Friday</span>
-                <span class="countdown" id="activity-countdown"></span>
+    <!-- Archive Section -->
+    <div class="archive-section" id="archive-section">
+        <button class="archive-toggle" onclick="toggleArchive()">
+            <span class="archive-label">Archive</span>
+            <span class="archive-arrow" id="archive-arrow">↓</span>
+        </button>
+        <div class="archive-content" id="archive-content">
+            <div class="archive-item" onclick="openActivity()">
+                <span class="archive-date">22/05</span>
+                <span class="archive-name">Friday Activity — Travel Photobook</span>
+                <span class="archive-status">✓</span>
             </div>
-            <span class="click-hint activity-hint" id="activity-hint" style="display:none;">Open</span>
         </div>
     </div>
 
@@ -1206,18 +1404,61 @@
         </div>
     </div>
 
-    <!-- Modal 2: Card -->
+    <!-- Modal 2: Card (envelope with password) -->
     <div class="modal-overlay" id="modal-2">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 96vw; width: 96vw; height: 90vh; max-height: 90vh; overflow-y: auto; padding: 15px 40px 30px;">
             <button class="modal-close" onclick="closeModal(2)">&times;</button>
-            <div class="gift-reveal">💝</div>
-            <h2>Dear Dorine,</h2>
-            <p style="font-style: italic; line-height: 1.8;">
-                "Wishing you the happiest of birthdays, Dorine! May this year bring you everything your heart desires. You deserve all the joy in the world."
-            </p>
-            <div class="placeholder-note">
-                <strong>Replace with your personal birthday message for Dorine</strong><br>
-                Write something heartfelt and personal here!
+
+            <!-- Password phase -->
+            <div id="envelope-lock">
+                <div class="gift-reveal">💌</div>
+                <h2>Enter the code to open</h2>
+                <div class="envelope-pin">
+                    <input type="text" id="envelope-pin" class="guess-input" placeholder="_ _ _ _" maxlength="4" style="letter-spacing: 8px; font-size: 24px;">
+                </div>
+                <button class="guess-btn" onclick="unlockEnvelope()" style="margin-top: 12px;">Open</button>
+                <p id="envelope-error" class="unlock-error"></p>
+            </div>
+
+            <!-- Envelope animation phase -->
+            <div id="envelope-reveal" style="display: none;">
+                <div class="envelope-container">
+                    <div class="envelope">
+                        <div class="envelope-flap"></div>
+                        <div class="envelope-body"></div>
+                    </div>
+                    <div class="letter" id="letter-card">
+                        <div class="letter-content" style="direction: rtl; text-align: right;">
+                            <h2 style="margin-bottom: 16px;">לדורין שלי &lt;3</h2>
+                            <p style="line-height: 2; font-size: 15px; font-weight: 300;">
+                                היום את ב26, (עור פנים נקי ולא יום מעל 19) מעניין באיזה נקודה את קוראת את זה, ב00:00 או בבוקר או בכלל בערב…
+                                <br><br>
+                                גיל רציני 26, עברת ועברנו הרבה ביחד, מעבר למדינה זרה, מגפה עולמית, איזה 2-3 מלחמות, 45 ימי בחירות, אני בטוח שמספר 4 ספרתי של קפה, של זמן בדירה והרבה מאוד צעדים/קילומטרים תלוי מי שואל, הרבה מדינות טיולים, וולט, ואו כמה וולט
+                                <br><br>
+                                בשבילי זו רק התחלה.. זה לא היום הולדת הראשון שלנו ביחד וגם לא שני, ואני מתרגש כל פעם מחדש - אפילו יותר, כי אני נזכר במה עוד עברנו בשנה האחרונה, ואיך כל שנה מייצגת פרק חדש ושונה בספר, לשנה הקרובה
+                                <br><br>
+                                לפני שאני מאחל לך דברים, אני רוצה קודם כל להגיד תודה, תודה על התמיכה, תודה שאת מצחיקה אותי, תודה שאת מרגיעה אותי, תודה שאת אוהב אותי, נקודת איזון ואור בכל רגע ביום, הודעות בווצאפ במהלך היום, זמן איכות בערב, קפה שאנחנו מצליחים לגנוב מדי פעם במהלך השבוע, זה הדלק ומה שמפצה ומאזן כל דבר פחות חיובי שקורה במהלך היום, אז קודם כל זה הזמן להגיד תודה שאת קיימת ❤️
+                                <br><br>
+                                כיף שיש לי את האופציה לאחל לך שיהיה לך יום הולדת שמח כי מגיע לך, את הבן אדם שהכי מצחיק אותי בעולם, הבן אדם שאני הכי אוהב לבלות זמן איתו, והבן אדם שעושה לי הכי טוב. (ולא רק לי דרך אגב אם פספסת)
+                                <br><br>
+                                שתהיי לי בריאה, מעושרת ומאושרת, שתמשיכי להגשים חלומות, שתמצאי מה שעושה לך לקום בבוקר בחיוך, שתמשיכי את הדרך שלך ושתגרמי לכולם להמשיך לראות את מה שאני רואה כל יום
+                                <br><br>
+                                שלא יהיו ריחות רעים ברחוב, שתהיה מגפת פירות, שנמשיך לאכול דברים טעימים, לבקר במקומות חדשים, לגלות את העולם כל פעם עוד, ביחד.
+                                <br><br>
+                                יש לנו עוד דרך לעבור ודברים לחוות, אני פה לצידך לכל מה שתצטרכי, ומתי שתצטרכי, המעריץ מספר אחד, והחבר הכי טוב (לדעתי לפחות)
+                                <br><br>
+                                ואני מעט מתקשה ללא חרוזים, אז קצת לסיום לדורין היקרה, שכל דבר יהיה עם חמאה, שקלרויות זה לא יוסיף, שנאכל צהריים באסיף, ואת הבשמים שלך כולם אוהבים להסניף
+                                <br><br>
+                                זהו הייתי צריך להוציא את זה,
+                                <br>
+                                אאחל דברים פרקטים לשנה הקרובה גם לנצל טיפה את הפלטפורמה - רועה אוסטרלי, דירה 3 חדרים עם אי וממד, או לחילופין רילוקשין (אני אופטימי)
+                                <br><br>
+                                שתהיה לך שנה מדהימה אהובה שלי, שנעשה כיף ונעריך את הזמן - זה כנראה הכי חשוב. שנה משמעותית לפנינו ❤️
+                            </p>
+                            <p style="margin-top: 24px; font-weight: 400; text-align: left;">— עידן ♥</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1226,12 +1467,32 @@
     <div class="modal-overlay" id="modal-3">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal(3)">&times;</button>
-            <div class="gift-reveal">🎉</div>
-            <h2>Your Gift</h2>
-            <p>Here's what's waiting for you, Dorine...</p>
-            <div class="placeholder-note">
-                <strong>Invoice / Gift details go here</strong><br>
-                Replace this with the actual gift invoice or description.
+
+            <!-- Pin lock phase -->
+            <div id="gift-lock">
+                <div class="gift-reveal">🎁</div>
+                <h2>Enter the code to open</h2>
+                <div class="envelope-pin">
+                    <input type="text" id="gift-pin" class="guess-input" placeholder="_ _ _ _ _ _" maxlength="6" style="letter-spacing: 6px; font-size: 22px;">
+                    <button class="guess-btn" onclick="unlockGift()">OPEN</button>
+                </div>
+                <p id="gift-error" style="color: #c00; margin-top: 12px; font-size: 13px;"></p>
+            </div>
+
+            <!-- Gift content (hidden until unlocked) -->
+            <div id="gift-reveal" style="display: none;">
+                <div class="gift-box-3d" id="gift-box-3d">
+                    <div class="gift-box-lid" id="gift-lid">
+                        <div class="lid-face lid-top"></div>
+                    </div>
+                    <div class="gift-box-base" id="gift-base">
+                        <div class="gift-ribbon"></div>
+                        <div class="gift-ribbon-h"></div>
+                    </div>
+                </div>
+                <div class="gift-image-reveal" id="gift-image-reveal">
+                    <img src="gift.png" alt="Your Gift">
+                </div>
             </div>
         </div>
     </div>
@@ -1483,47 +1744,16 @@
         updateLockState();
         setInterval(updateLockState, 1000);
 
-        // Friday activity lock (opens Friday May 23)
-        const FRIDAY_DATE = new Date('2026-05-22T00:00:00');
-
-        function updateActivityLock() {
-            const activityBox = document.querySelector('.activity-box');
-            const activityLock = document.getElementById('activity-lock');
-            const activityHint = document.getElementById('activity-hint');
-            const activityCountdown = document.getElementById('activity-countdown');
-
-            const now = new Date();
-            const diff = FRIDAY_DATE - now;
-
-            if (diff <= 0) {
-                activityBox.classList.remove('locked-activity');
-                if (activityLock) activityLock.style.display = 'none';
-                activityHint.style.display = '';
-            } else {
-                activityBox.classList.add('locked-activity');
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                activityCountdown.textContent = `${hours}h ${minutes}m ${seconds}s`;
-            }
+        // Archive toggle
+        function toggleArchive() {
+            const content = document.getElementById('archive-content');
+            const arrow = document.getElementById('archive-arrow');
+            content.classList.toggle('open');
+            arrow.classList.toggle('open');
         }
 
-        updateActivityLock();
-        setInterval(updateActivityLock, 1000);
-
         function openActivity() {
-            const activityBox = document.querySelector('.activity-box');
-            if (activityBox.classList.contains('locked-activity')) {
-                activityBox.style.transform = 'scale(0.98)';
-                setTimeout(() => { activityBox.style.transform = ''; }, 200);
-                return;
-            }
-            activityBox.style.opacity = '0.5';
-            setTimeout(() => {
-                activityBox.style.opacity = '1';
-                document.getElementById('modal-activity').classList.add('active');
-                burstConfetti();
-            }, 120);
+            document.getElementById('modal-activity').classList.add('active');
         }
 
         // Confetti — monochrome
@@ -1568,12 +1798,22 @@
         // Close modal
         function closeModal(num) {
             document.getElementById(`modal-${num}`).classList.remove('active');
+            if (num === 3) {
+                stopFireworks();
+                giftAudio.pause();
+                giftAudio.currentTime = 0;
+            }
         }
 
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) {
                     overlay.classList.remove('active');
+                    if (overlay.id === 'modal-3') {
+                        stopFireworks();
+                        giftAudio.pause();
+                        giftAudio.currentTime = 0;
+                    }
                 }
             });
         });
@@ -1584,6 +1824,115 @@
                 document.getElementById('photo-modal').classList.remove('active');
             }
         });
+
+        // Envelope unlock
+        function unlockEnvelope() {
+            const pin = document.getElementById('envelope-pin').value.trim();
+            if (pin === '2626') {
+                document.getElementById('envelope-lock').style.display = 'none';
+                document.getElementById('envelope-reveal').style.display = 'block';
+
+                setTimeout(() => {
+                    document.querySelector('.envelope-flap').classList.add('open');
+                }, 300);
+
+                setTimeout(() => {
+                    document.getElementById('letter-card').classList.add('rise');
+                    burstConfetti();
+                }, 900);
+            } else {
+                document.getElementById('envelope-error').textContent = '✗ Wrong code';
+                setTimeout(() => {
+                    document.getElementById('envelope-error').textContent = '';
+                }, 2000);
+            }
+        }
+
+        document.getElementById('envelope-pin').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') unlockEnvelope();
+        });
+
+        // Gift unlock
+        const giftAudio = new Audio('goosebumps.mp3');
+
+        function unlockGift() {
+            const pin = document.getElementById('gift-pin').value.trim().toLowerCase();
+            if (pin === 'dorine') {
+                document.getElementById('gift-lock').style.display = 'none';
+                document.getElementById('gift-reveal').style.display = 'block';
+                if (musicPlaying) {
+                    toggleMusic();
+                }
+                giftAudio.play();
+
+                setTimeout(() => {
+                    document.getElementById('gift-base').classList.add('opened');
+                }, 500);
+
+                setTimeout(() => {
+                    document.getElementById('gift-lid').classList.add('open');
+                }, 1500);
+
+                setTimeout(() => {
+                    document.getElementById('gift-base').classList.add('fade-out');
+                    document.getElementById('gift-lid').style.display = 'none';
+                }, 4500);
+
+                setTimeout(() => {
+                    document.getElementById('gift-box-3d').style.display = 'none';
+                    document.getElementById('gift-image-reveal').style.display = 'block';
+                    launchFireworks();
+                    burstConfetti();
+                }, 6000);
+            } else {
+                document.getElementById('gift-error').textContent = '✗ Wrong code';
+                setTimeout(() => {
+                    document.getElementById('gift-error').textContent = '';
+                }, 2000);
+            }
+        }
+
+        document.getElementById('gift-pin').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') unlockGift();
+        });
+
+        let fireworksInterval = null;
+
+        function launchFireworks() {
+            const colors = ['#ff0000', '#ff6600', '#ffcc00', '#00ff66', '#0066ff', '#cc00ff', '#ff0099'];
+            function createBurst(x, y) {
+                for (let i = 0; i < 30; i++) {
+                    const spark = document.createElement('div');
+                    spark.className = 'firework';
+                    spark.style.left = x + 'px';
+                    spark.style.top = y + 'px';
+                    spark.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    const angle = (Math.PI * 2 / 30) * i;
+                    const dist = 80 + Math.random() * 120;
+                    spark.style.setProperty('--fx', Math.cos(angle) * dist + 'px');
+                    spark.style.setProperty('--fy', Math.sin(angle) * dist + 'px');
+                    spark.style.animationDuration = (1 + Math.random()) + 's';
+                    document.body.appendChild(spark);
+                    setTimeout(() => spark.remove(), 2000);
+                }
+            }
+            function randomBurst() {
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+                createBurst(w * (0.03 + Math.random() * 0.15), h * (0.2 + Math.random() * 0.5));
+                createBurst(w * (0.82 + Math.random() * 0.15), h * (0.2 + Math.random() * 0.5));
+            }
+            randomBurst();
+            fireworksInterval = setInterval(randomBurst, 600);
+        }
+
+        function stopFireworks() {
+            if (fireworksInterval) {
+                clearInterval(fireworksInterval);
+                fireworksInterval = null;
+            }
+            document.querySelectorAll('.firework').forEach(el => el.remove());
+        }
 
         // Music player
         const audio = document.getElementById('music-audio');
